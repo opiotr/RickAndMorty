@@ -9,12 +9,24 @@ import SwiftUI
 
 @main
 struct RickAndMortyApp: App {
-    let persistenceController = PersistenceController.shared
-
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            TabView {
+                NavigationStack {
+                    CharacterListScene(viewModel: .init())
+                }
+                .tabItem {
+                    Label("Characters", systemImage: "person.3")
+                }
+
+                NavigationStack {
+                    FavoriteCharactersScene(viewModel: .init())
+                }
+                .tabItem {
+                    Label("Favorites", systemImage: "star")
+                }
+            }
+            .preferredColorScheme(.dark)
         }
     }
 }
